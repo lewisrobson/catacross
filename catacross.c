@@ -87,14 +87,14 @@ string pulled out of the file is then assigned to item i of the array */
 int i = 0;
 while(fgets(string, sizeof(string), fp_left)){
 strtok(string, "\n");
-strcpy(&left_items[i][0], string);
+strncpy(&left_items[i][0], string, 256);
 i++;
 }
 fclose(fp_left);
 
 i = 0;
 while(fgets(string, sizeof(string), fp_right)){
-strcpy(&right_items[i][0], string);
+strncpy(&right_items[i][0], string, 256);
 i++;
 }
 fclose(fp_right);
