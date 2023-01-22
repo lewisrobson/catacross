@@ -65,11 +65,15 @@ FILE *fp_left, *fp_right, *fp_left_backup, *fp_right_backup;
 fp_left = fopen(argv[1], "r");
 if(fp_left == NULL){
     printf("error opening file %s\n", argv[1]);
+    fclose(fp_left);
+    exit(1);
 }
 
 fp_right = fopen(argv[2], "r");
 if(fp_right == NULL){
     printf("error opening file %s\n", argv[2]);
+    fclose(fp_right);
+    exit(1);
 }
 
 //get left_total && right_total for use later on
@@ -144,8 +148,15 @@ if(left_total != right_total){
             fp_left = fopen(argv[1], "r");
             if(fp_left == NULL){
                 printf("error opening file %s\n", argv[1]);
+                fclose(fp_left);
+                exit(1);
             }
             fp_left_backup = fopen(left_backup, "w");
+            if(fp_left_backup == NULL){
+                printf("error opening file %s\n", left_backup);
+                fclose(fp_left_backup);
+                exit(1);
+            }
             char buffer [1024];
             size_t bytes_read;
             while ((bytes_read = fread(buffer, 1, sizeof(buffer), fp_left)) >0)
@@ -161,8 +172,15 @@ if(left_total != right_total){
             fp_right = fopen(argv[2], "r");
             if(fp_right == NULL){
                 printf("error opening file %s\n", argv[2]);
+                fclose(fp_right);
+                exit(1);
             }
             fp_right_backup = fopen(right_backup, "w");
+            if(fp_right_backup == NULL){
+                printf("error opening file %s\n", right_backup);
+                fclose(fp_right_backup);
+                exit(1);
+            }
         
             while ((bytes_read = fread(buffer, 1, sizeof(buffer), fp_right)) >0){
                 fwrite(buffer, 1, bytes_read, fp_right_backup);
