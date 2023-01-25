@@ -198,8 +198,6 @@ if(left_total != right_total){
         }
 }
 
-/////////////// do the padding <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
-padding(left_total, right_total, &argv[0]);
 //########################################################################
 // re open file descriptors to undertake the actual merging
 
@@ -212,30 +210,31 @@ if(fp_right ==NULL){
     printf("error opening file %s\n", argv[2]);
 }
 
-
 // main essentially starts here  <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 //define 2D array's to store multiple strings
 char left_items[left_total][256];
 char right_items[right_total][256];
-
 /* these next two loops loop through each line of the file_pointer(s)
 the strtok is to remove the \n character from the left side file, the
 string pulled out of the file is then assigned to item i of the array */
 int i = 0;
-while(fgets(string, sizeof(string), fp_left)){
-strtok(string, "\n");
-strncpy(&left_items[i][0], string, 256);
+char my_buffer[256] = {0};
+while(fgets(my_buffer, 256, fp_left)){
+strtok(my_buffer, "\n");
+strncpy(&left_items[i][0], my_buffer, 256);
 i++;
 }
 fclose(fp_left);
-
 i = 0;
-while(fgets(string, sizeof(string), fp_right)){
-strncpy(&right_items[i][0], string, 256);
+char my_buffertwo[1000];
+while(fgets(my_buffertwo, 1000, fp_right)){
+strncpy(&right_items[i][0], my_buffertwo, 256);
 i++;
 }
 fclose(fp_right);
-
+/////////////// do the padding <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+padding(left_total, right_total, &argv[0]);
+//########################################################################
 //file pointer for the combined strings to be output to below
 FILE *fp_output;
 fp_output = fopen(output_file_name, "w");
@@ -244,7 +243,6 @@ if(fp_output == NULL){
     printf("error creating output file\n");
     exit(4);
 }
-
 
 /* this loop adds a space to the end of the left string 
 then concatenates the left and right strings together */
