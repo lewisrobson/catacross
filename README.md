@@ -1,4 +1,6 @@
 # catacross
+still in development, works but has not been fully tested and is being improved, YMMV.
+
 concatenate two files across, combining them one line at a time
 if the files are of different sizes in lines, the user will be prompted if they want to pad the files with empty new lines.
 Prior to this, the program will prompt the user to take a backup.
