@@ -77,7 +77,7 @@ if(fp_right == NULL){
 }
 
 //get left_total && right_total for use later on
-char string[256];
+char string[256] = {};
 while(fgets(string, sizeof(string), fp_left)){
 left_total++;
 }
@@ -101,7 +101,7 @@ if(left_total != right_total){
     printf("Files not same size, unexpected results may occur, do you want "
             "to pad the file with less lines by adding some blank lines?\n"
             "[y][Y] / [n][N]\n");
-    char user_selection[2];
+    char user_selection[2] = {};
     scanf("%s", user_selection);
     if((strcmp(user_selection, "y") == 0) || strcmp(user_selection, "Y") == 0){
         printf("Okay, lets take some backups first\n");
@@ -157,7 +157,7 @@ if(left_total != right_total){
                 //fclose(fp_left_backup);
                 exit(1);
             }
-            char buffer [1024];
+            char buffer [1024] = {};
             size_t bytes_read;
             while ((bytes_read = fread(buffer, 1, sizeof(buffer), fp_left)) >0)
             {
@@ -214,6 +214,13 @@ if(fp_right ==NULL){
 //define 2D array's to store multiple strings
 char left_items[left_total][256];
 char right_items[right_total][256];
+//initialize the 2d array characters to null
+for(int rows = 0; rows < 12; rows++) {
+    for (int column = 0; column < 256; column++) {
+        left_items[rows][column] = '\0';
+    }
+}
+
 /* these next two loops loop through each line of the file_pointer(s)
 the strtok is to remove the \n character from the left side file, the
 string pulled out of the file is then assigned to item i of the array */
@@ -226,7 +233,7 @@ i++;
 }
 fclose(fp_left);
 i = 0;
-char my_buffertwo[1000];
+char my_buffertwo[1000] = {0};
 while(fgets(my_buffertwo, 1000, fp_right)){
 strncpy(&right_items[i][0], my_buffertwo, 256);
 i++;
