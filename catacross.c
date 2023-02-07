@@ -77,7 +77,7 @@ if(fp_right == NULL){
 }
 
 //get left_total && right_total for use later on
-char string[256] = {};
+char string[256] = {0};
 while(fgets(string, sizeof(string), fp_left)){
 left_total++;
 }
@@ -101,7 +101,7 @@ if(left_total != right_total){
     printf("Files not same size, unexpected results may occur, do you want "
             "to pad the file with less lines by adding some blank lines?\n"
             "[y][Y] / [n][N]\n");
-    char user_selection[2] = {};
+    char user_selection[2] = {0};
     scanf("%s", user_selection);
     if((strcmp(user_selection, "y") == 0) || strcmp(user_selection, "Y") == 0){
         printf("Okay, lets take some backups first\n");
@@ -157,7 +157,7 @@ if(left_total != right_total){
                 //fclose(fp_left_backup);
                 exit(1);
             }
-            char buffer [1024] = {};
+            char buffer [1024] = {0};
             size_t bytes_read;
             while ((bytes_read = fread(buffer, 1, sizeof(buffer), fp_left)) >0)
             {
@@ -243,6 +243,7 @@ fclose(fp_right);
 padding(left_total, right_total, &argv[0]);
 //########################################################################
 //file pointer for the combined strings to be output to below
+printf("debug, padding done, back in main\n");
 FILE *fp_output;
 fp_output = fopen(output_file_name, "w");
 free(output_file_name);
